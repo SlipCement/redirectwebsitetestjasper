@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All in One Ultimate Search</title>
+  <title>Jasper's Search Engine</title>
   <style>
     * {
       box-sizing: border-box;
@@ -286,26 +286,28 @@
 
   </div>
 
-  <div class="tools">
+  <div class="tools" style="display:flex; flex-direction:column; align-items:center; gap:25px; max-width:1200px; margin:40px auto 0;">
 
-    <div class="card">
-      <h2>Live Clock</h2>
-      <div class="clock" id="clock">00:00:00</div>
-    </div>
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; width:100%;">
 
-    <div class="card">
-      <h2>Quick Notes</h2>
-      <textarea id="notesBox" placeholder="Write something..." style="width:100%; height:120px; border:none; outline:none; resize:none; padding:15px; border-radius:16px; background:rgba(255,255,255,0.08); color:white; font-size:1rem;"></textarea>
-      <button style="margin-top:15px; width:100%;" onclick="saveNotes()">Save Notes</button>
-    </div>
-
-  <div style="max-width:1200px; margin:40px auto 0; display:flex; justify-content:center;">
-    <div class="card wide-card" style="border:1px solid #3a3f46; background:rgba(245,245,245,0.05); width:700px; padding:35px;">
-      <h2 style="color:#f5f5f5; text-align:center; font-size:2rem; margin-bottom:20px;">GitHub</h2>
-      <div class="search-box">
-        <button style="width:100%; background:#24292f; font-size:1.2rem; padding:20px;" onclick="window.open('https://github.com', '_blank')">Open GitHub</button>
+      <div class="card" style="flex:1; min-width:260px; max-width:420px;">
+        <h2>Live Clock</h2>
+        <div class="clock" id="clock">00:00:00</div>
       </div>
+
+      <div class="card" style="flex:1; min-width:260px; max-width:420px;">
+        <h2>Quick Notes</h2>
+        <textarea id="notesBox" placeholder="Write something..." style="width:100%; height:120px; border:none; outline:none; resize:none; padding:15px; border-radius:16px; background:rgba(255,255,255,0.08); color:white; font-size:1rem;"></textarea>
+        <button style="margin-top:15px; width:100%;" onclick="saveNotes()">Save Notes</button>
+      </div>
+
     </div>
+
+    <div class="card" style="width:100%; max-width:420px; border:1px solid #3a3f46; background:rgba(245,245,245,0.05); text-align:center;">
+      <h2 style="color:#f5f5f5; font-size:2rem; margin-bottom:20px;">GitHub</h2>
+      <button style="width:100%; background:#24292f; font-size:1.2rem; padding:20px;" onclick="window.open('https://github.com', '_blank')">Open GitHub</button>
+    </div>
+
   </div>
 
   <footer>
