@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasper's Search Engine</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b, #111827);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 30px;
+    }
+
+    .bg-glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.15);
+      filter: blur(100px);
+      z-index: -1;
+      animation: floatGlow 10s infinite alternate ease-in-out;
+    }
+
+    .bg-glow:nth-child(1) {
+      top: -150px;
+      left: -100px;
+    }
+
+    .bg-glow:nth-child(2) {
+      bottom: -200px;
+      right: -100px;
+      background: rgba(255, 0, 200, 0.12);
+      animation-delay: 2s;
+    }
+
+    @keyframes floatGlow {
+      from {
+        transform: translateY(0px) translateX(0px);
+      }
+      to {
+        transform: translateY(40px) translateX(30px);
+      }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, cyan, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      text-align: center;
+      opacity: 0.8;
+      margin-bottom: 35px;
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .wide-card {
+      grid-column: span 2;
+    }
+
+    .small-card {
+      max-width: 100%;
+    }
+
+    @media (max-width: 800px) {
+      .search-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wide-card {
+        grid-column: span 1;
+      }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px;
+      padding: 20px;
+      transition: 0.3s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: cyan;
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.12);
+      color: white;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      background: rgba(255,255,255,0.18);
+      box-shadow: 0 0 10px cyan;
+    }
+
+    button {
+      border: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      background: linear-gradient(135deg, cyan, #7c3aed);
+      color: white;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .quick-links a {
+      text-decoration: none;
+      color: white;
+      background: rgba(255,255,255,0.08);
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: 0.2s;
+    }
+
+    .quick-links a:hover {
+      background: rgba(0,255,255,0.25);
+    }
+
+    .tools {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .clock {
+      font-size: 2rem;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+
+    .light {
+      background: linear-gradient(135deg, #dbeafe, #f8fafc);
+      color: #111827;
+    }
+
+    .light .card {
+      background: rgba(255,255,255,0.7);
+      color: #111827;
+    }
+
+    .light input {
+      background: rgba(0,0,0,0.08);
+      color: black;
+    }
+
+    .light .quick-links a {
+      color: black;
+      background: rgba(0,0,0,0.06);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-glow"></div>
+
+  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+
+  <h1>Jasper's Search Engine</h1>
+  <p class="subtitle">Fast searches, clean design, and all your favorite tools in one place.</p>
+
+  <div class="search-grid">
+
+    <div class="card wide-card" style="border:1px solid #b85a41; background:rgba(227,113,81,0.08);">
+      <h2 style="color:#E37151;">DuckDuckGo</h2>
+      <div class="search-box">
+        <input type="text" id="duckInput" placeholder="Search privately...">
+        <button onclick="search('duck')">Go</button>
+      </div>
+    </div>
+
+    <div class="card wide-card" style="border:1px solid #2f5fb3; background:rgba(66,133,244,0.08);">
+      <h2 style="color:#4285F4;">Google Search</h2>
+      <div class="search-box">
+        <input type="text" id="googleInput" placeholder="Search Google...">
+        <button onclick="search('google')">Go</button>
+      </div>
+    </div>
+
+    
+
+    <div class="card small-card" style="border:1px solid #b30000; background:rgba(255,0,0,0.08);">
+      <h2 style="color:#FF0000;">YouTube</h2>
+      <div class="search-box">
+        <input type="text" id="youtubeInput" placeholder="Find videos...">
+        <button onclick="search('youtube')">Go</button>
+      </div>
+    </div>
+
+    <div class="card small-card" style="border:1px solid #6f767d; background:rgba(162,169,177,0.08);">
+      <h2 style="color:#A2A9B1;">Wikipedia</h2>
+      <div class="search-box">
+        <input type="text" id="wikiInput" placeholder="Search knowledge...">
+        <button onclick="search('wiki')">Go</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tools">
+
+    <div class="card">
+      <h2>Quick Links</h2>
+      <div class="quick-links">
+        <a href="https://chatgpt.com" target="_blank">ChatGPT</a>
+        <a href="https://youtube.com" target="_blank">YouTube</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
+        <a href="https://reddit.com" target="_blank">Reddit</a>
+        <a href="https://archive.org" target="_blank">Archive.org</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Live Clock</h2>
+      <div class="clock" id="clock">00:00:00</div>
+    </div>
+
+    <div class="card">
+      <h2>Random Search Idea</h2>
+      <p id="idea" style="margin-bottom: 12px;">Click below for a random idea.</p>
+      <button onclick="randomIdea()">Generate Idea</button>
+    </div>
+
+  </div>
+
+  <div style="max-width:1200px; margin:40px auto 0; display:flex; justify-content:center;">
+    <div class="card wide-card" style="border:1px solid #3a3f46; background:rgba(245,245,245,0.05); width:700px; padding:35px;">
+      <h2 style="color:#f5f5f5; text-align:center; font-size:2rem; margin-bottom:20px;">GitHub</h2>
+      <div class="search-box">
+        <button style="width:100%; background:#24292f; font-size:1.2rem; padding:20px;" onclick="window.open('https://github.com', '_blank')">Open GitHub</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Built with HTML, CSS, and JavaScript
+  </footer>
+
+  <script>
+    function search(type) {
+      const engines = {
+        google: {
+          id: 'googleInput',
+          url: 'https://www.google.com/search?q='
+        },
+        duck: {
+          id: 'duckInput',
+          url: 'https://duckduckgo.com/?q='
+        },
+        youtube: {
+          id: 'youtubeInput',
+          url: 'https://www.youtube.com/results?search_query='
+        },
+        wiki: {
+          id: 'wikiInput',
+          url: 'https://en.wikipedia.org/wiki/Special:Search?search='
+        },
+        
+        
+      };
+
+      const engine = engines[type];
+      const query = document.getElementById(engine.id).value.trim();
+
+      if(query) {
+        window.open(engine.url + encodeURIComponent(query), '_blank');
+      }
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      document.getElementById('clock').textContent = time;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    const ideas = [
+      'Weird abandoned websites',
+      'Minecraft redstone elevator ideas',
+      'Cool CSS animations',
+      'Ancient lost cities',
+      'Funny programming bugs',
+      'Retro tech gadgets',
+      'Best 3D print ideas',
+      'Internet mysteries',
+      'Cursed images',
+      'Space telescope photos'
+    ];
+
+    function randomIdea() {
+      const random = ideas[Math.floor(Math.random() * ideas.length)];
+      document.getElementById('idea').textContent = random;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+    }
+
+    document.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const active = document.activeElement.id;
+
+        if(active === 'googleInput') search('google');
+        if(active === 'duckInput') search('duck');
+        if(active === 'youtubeInput') search('youtube');
+        if(active === 'wikiInput') search('wiki');
+      }
+    });
+  </script>
+</body>
+</html>
