@@ -250,7 +250,7 @@
 
   <div class="search-grid">
 
-    <div class="card wide-card" style="border:1px solid #b85a41; background:rgba(227,113,81,0.08);" onclick="openEngine('duck', event)">
+    <div class="card wide-card" style="border:1px solid #b85a41; background:rgba(227,113,81,0.08);" onclick="handleCardClick('duck', event)">
       <h2 style="color:#E37151;">DuckDuckGo</h2>
       <div class="search-box">
         <input type="text" id="duckInput" placeholder="Search privately...">
@@ -258,7 +258,7 @@
       </div>
     </div>
 
-    <div class="card wide-card" style="border:1px solid #2f5fb3; background:rgba(66,133,244,0.08);" onclick="openEngine('google', event)">
+    <div class="card wide-card" style="border:1px solid #2f5fb3; background:rgba(66,133,244,0.08);" onclick="handleCardClick('google', event)">
       <h2 style="color:#4285F4;">Google Search</h2>
       <div class="search-box">
         <input type="text" id="googleInput" placeholder="Search Google...">
@@ -268,7 +268,7 @@
 
     
 
-    <div class="card small-card" style="border:1px solid #b30000; background:rgba(255,0,0,0.08);" onclick="openEngine('youtube', event)">
+    <div class="card small-card" style="border:1px solid #b30000; background:rgba(255,0,0,0.08);" onclick="handleCardClick('youtube', event)">
       <h2 style="color:#FF0000;">YouTube</h2>
       <div class="search-box">
         <input type="text" id="youtubeInput" placeholder="Find videos...">
@@ -276,7 +276,7 @@
       </div>
     </div>
 
-    <div class="card small-card" style="border:1px solid #6f767d; background:rgba(162,169,177,0.08);" onclick="openEngine('wiki', event)">
+    <div class="card small-card" style="border:1px solid #6f767d; background:rgba(162,169,177,0.08);" onclick="handleCardClick('wiki', event)">
       <h2 style="color:#A2A9B1;">Wikipedia</h2>
       <div class="search-box">
         <input type="text" id="wikiInput" placeholder="Search knowledge...">
