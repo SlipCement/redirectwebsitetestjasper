@@ -9,7 +9,9 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     body {
@@ -18,6 +20,8 @@
       min-height: 100vh;
       overflow-x: hidden;
       padding: 30px;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .bg-glow {
@@ -29,6 +33,7 @@
       filter: blur(100px);
       z-index: -1;
       animation: floatGlow 10s infinite alternate ease-in-out;
+      will-change: transform;
     }
 
     .bg-glow:nth-child(1) {
@@ -59,6 +64,7 @@
       background: linear-gradient(to right, cyan, violet);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .subtitle {
@@ -96,10 +102,11 @@
     .card {
       background: rgba(255,255,255,0.08);
       backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 24px;
       padding: 20px;
-      transition: 0.3s;
+      transition: 0.3s ease;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
@@ -126,12 +133,19 @@
       background: rgba(255,255,255,0.12);
       color: white;
       outline: none;
-      transition: 0.2s;
+      transition: 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      font-size: 16px;
     }
 
     input:focus {
       background: rgba(255,255,255,0.18);
       box-shadow: 0 0 10px cyan;
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.6);
     }
 
     button {
@@ -142,12 +156,19 @@
       background: linear-gradient(135deg, cyan, #7c3aed);
       color: white;
       font-weight: bold;
-      transition: 0.2s;
+      transition: 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      font-size: 16px;
     }
 
     button:hover {
       transform: scale(1.05);
       filter: brightness(1.1);
+    }
+
+    button:active {
+      transform: scale(0.98);
     }
 
     .quick-links {
@@ -163,7 +184,9 @@
       background: rgba(255,255,255,0.08);
       padding: 8px 12px;
       border-radius: 999px;
-      transition: 0.2s;
+      transition: 0.2s ease;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     .quick-links a:hover {
@@ -183,12 +206,16 @@
       text-align: center;
       margin-top: 10px;
       font-weight: bold;
+      font-family: 'Menlo', 'Courier New', monospace;
+      -webkit-font-variant-numeric: tabular-nums;
+      font-variant-numeric: tabular-nums;
     }
 
     .theme-toggle {
       position: fixed;
       top: 20px;
       right: 20px;
+      z-index: 1000;
     }
 
     .light {
@@ -206,6 +233,10 @@
       color: black;
     }
 
+    .light input::placeholder {
+      color: rgba(0,0,0,0.5);
+    }
+
     .light .quick-links a {
       color: black;
       background: rgba(0,0,0,0.06);
@@ -215,6 +246,14 @@
       text-align: center;
       margin-top: 40px;
       opacity: 0.7;
+    }
+
+    textarea {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-appearance: none;
+      appearance: none;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -297,7 +336,7 @@
 
       <div class="card" style="flex:1; min-width:260px; max-width:420px;">
         <h2>Quick Notes</h2>
-        <textarea id="notesBox" placeholder="Write something..." style="width:100%; height:120px; border:none; outline:none; resize:none; padding:15px; border-radius:16px; background:rgba(255,255,255,0.08); color:white; font-size:1rem;"></textarea>
+        <textarea id="notesBox" placeholder="Write something..." style="width:100%; height:120px; border:none; outline:none; resize:none; padding:15px; border-radius:16px; background:rgba(255,255,255,0.12); color:white;"></textarea>
         <button style="margin-top:15px; width:100%;" onclick="saveNotes()">Save Notes</button>
       </div>
 
@@ -361,12 +400,9 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    
-
-    
-
     function saveNotes() {
       localStorage.setItem('jasperSearchNotes', document.getElementById('notesBox').value);
+      alert('Notes saved!');
     }
 
     window.addEventListener('load', () => {
@@ -378,9 +414,16 @@
 
     function toggleTheme() {
       document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
     }
 
-    <div class="tenor-gif-embed" data-postid="8365389557116207811" data-share-method="host" data-aspect-ratio="1.0081" data-width="100%"><a href="https://tenor.com/view/monkey-thinking-meme-monkey-thinking-sticker-gif-8365389557116207811">Monkey Thinking Meme Monkey Thinking Sticker Sticker</a>from <a href="https://tenor.com/search/monkey+thinking+meme-stickers">Monkey Thinking Meme Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    // Load saved theme preference
+    window.addEventListener('load', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light');
+      }
+    });
   </script>
 </body>
 </html>
