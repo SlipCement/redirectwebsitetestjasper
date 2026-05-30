@@ -399,7 +399,7 @@
       <h2 style="color:#E37151;">DuckDuckGo</h2>
       <div class="search-box-wrapper">
         <div class="search-box">
-          <input type="text" id="duckInput" placeholder="Search privately...">
+          <input   type="search"   id="duckInput"   name="duck_search_2026"   placeholder="Search privately..."   autocomplete="off"   autocorrect="off"   autocapitalize="off"   spellcheck="false">
           <button onclick="openEngine('duck')">Go</button>
         </div>
         <div class="suggestions-dropdown" id="duckSuggestions"></div>
@@ -410,7 +410,7 @@
       <h2 style="color:#4285F4;">Google Search</h2>
       <div class="search-box-wrapper">
         <div class="search-box">
-          <input type="text" id="googleInput" placeholder="Search Google...">
+          <input   type="search"   id="googleInput"   name="google_search_2026"   placeholder="Search Google..."   autocomplete="off"   autocorrect="off"   autocapitalize="off"   spellcheck="false">
           <button onclick="openEngine('google')">Go</button>
         </div>
         <div class="suggestions-dropdown" id="googleSuggestions"></div>
@@ -421,7 +421,7 @@
       <h2 style="color:#FF0000;">YouTube</h2>
       <div class="search-box-wrapper">
         <div class="search-box">
-          <input type="text" id="youtubeInput" placeholder="Find videos...">
+          <input   type="search"   id="youtubeInput"   name="youtube_search_2026"   placeholder="Find videos..."   autocomplete="off"   autocorrect="off"   autocapitalize="off"   spellcheck="false">
           <button onclick="openEngine('youtube')">Go</button>
         </div>
         <div class="suggestions-dropdown" id="youtubeSuggestions"></div>
@@ -432,7 +432,7 @@
       <h2 style="color:#A2A9B1;">Wikipedia</h2>
       <div class="search-box-wrapper">
         <div class="search-box">
-          <input type="text" id="wikiInput" placeholder="Search knowledge...">
+          <input   type="search"   id="wikiInput"   name="wiki_search_2026"   placeholder="Search knowledge..."   autocomplete="off"   autocorrect="off"   autocapitalize="off"   spellcheck="false">
           <button onclick="openEngine('wiki')">Go</button>
         </div>
         <div class="suggestions-dropdown" id="wikiSuggestions"></div>
@@ -768,6 +768,26 @@
         window.location.href = link.href;
       }
     });
+    // Handle all link clicks to open in current tab
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a');
+  if (link && !e.target.closest('.suggestions-dropdown')) {
+    e.preventDefault();
+    window.location.href = link.href;
+  }
+});
+
+// Prevent browser autocomplete history
+document.querySelectorAll('input[type="search"]').forEach(input => {
+  input.setAttribute('autocomplete', 'off');
+
+  input.addEventListener('focus', () => {
+    input.setAttribute('readonly', true);
+    setTimeout(() => {
+      input.removeAttribute('readonly');
+    }, 50);
+  });
+});
   </script>
 </body>
 </html>
