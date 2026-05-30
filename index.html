@@ -264,27 +264,27 @@
   <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
 
   <div style="display:flex; justify-content:center; align-items:center; gap:28px; margin-bottom:10px; flex-wrap:wrap;">
-    <a href="https://duckduckgo.com" target="_blank" style="transition:0.2s;">
+    <a href="https://duckduckgo.com" style="transition:0.2s;">
       <img src="https://upload.wikimedia.org/wikipedia/en/9/90/The_DuckDuckGo_Duck.png" alt="DuckDuckGo" style="height:64px; cursor:pointer; filter:drop-shadow(0 0 10px rgba(227,113,81,0.4));">
     </a>
 
-    <a href="https://google.com" target="_blank" style="transition:0.2s;">
+    <a href="https://google.com" style="transition:0.2s;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style="height:52px; cursor:pointer; filter:drop-shadow(0 0 10px rgba(66,133,244,0.4));">
     </a>
 
-    <a href="https://youtube.com" target="_blank" style="transition:0.2s;">
+    <a href="https://youtube.com" style="transition:0.2s;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube" style="height:52px; cursor:pointer; filter:drop-shadow(0 0 10px rgba(255,0,0,0.4));">
     </a>
 
-    <a href="https://wikipedia.org" target="_blank" style="transition:0.2s;">
+    <a href="https://wikipedia.org" style="transition:0.2s;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Wikipedia-logo.png" alt="Wikipedia" style="height:56px; cursor:pointer; filter:drop-shadow(0 0 10px rgba(162,169,177,0.4));">
     </a>
   </div>
 
   <div style="display:flex; justify-content:center; align-items:center; gap:18px; margin-bottom:35px; opacity:0.9; flex-wrap:wrap;">
-    <a href="https://chatgpt.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT" style="height:26px;"></a>
-    <a href="https://github.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style="height:26px; filter:invert(1);"></a>
-    <a href="https://archive.org" target="_blank"><img src="https://archive.org/images/glogo.jpg" alt="Archive.org" style="height:26px; border-radius:6px;"></a>
+    <a href="https://chatgpt.com"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT" style="height:26px;"></a>
+    <a href="https://github.com"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style="height:26px; filter:invert(1);"></a>
+    <a href="https://archive.org"><img src="https://archive.org/images/glogo.jpg" alt="Archive.org" style="height:26px; border-radius:6px;"></a>
   </div>
 
   <div class="search-grid">
@@ -336,7 +336,7 @@
 
       <div class="card" style="flex:1; min-width:260px; max-width:420px;">
         <h2>Quick Notes</h2>
-        <textarea id="notesBox" placeholder="Write something..." style="width:100%; height:120px; border:none; outline:none; resize:none; padding:15px; border-radius:16px; background:rgba(255,255,255,0.08); color:white;"></textarea>
+        <textarea id="notesBox" placeholder="Write something..." style="width:100%; height:120px; border:none; outline:none; resize:none; padding:15px; border-radius:16px; background:rgba(255,255,255,0.12); color:white;"></textarea>
         <button style="margin-top:15px; width:100%;" onclick="saveNotes()">Save Notes</button>
       </div>
 
@@ -344,7 +344,7 @@
 
     <div class="card" style="width:100%; max-width:420px; border:1px solid #3a3f46; background:rgba(245,245,245,0.05); text-align:center;">
       <h2 style="color:#f5f5f5; font-size:2rem; margin-bottom:20px;">GitHub</h2>
-      <button style="width:100%; background:#24292f; font-size:1.2rem; padding:20px;" onclick="window.open('https://github.com', '_blank')">Open GitHub</button>
+      <button style="width:100%; background:#24292f; font-size:1.2rem; padding:20px;" onclick="window.location.href='https://github.com'">Open GitHub</button>
     </div>
 
   </div>
@@ -379,9 +379,9 @@
         if (type === 'youtube') url = 'https://www.youtube.com/results?search_query=';
         if (type === 'wiki') url = 'https://en.wikipedia.org/wiki/Special:Search?search=';
 
-        window.open(url + encodeURIComponent(query), '_blank');
+        window.location.href = url + encodeURIComponent(query);
       } else {
-        window.open(engines[type], '_blank');
+        window.location.href = engines[type];
       }
     }
 
@@ -448,6 +448,15 @@
     document.getElementById('notesBox').addEventListener('keypress', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         saveNotes();
+      }
+    });
+
+    // Handle all link clicks to open in current tab
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (link) {
+        e.preventDefault();
+        window.location.href = link.href;
       }
     });
   </script>
